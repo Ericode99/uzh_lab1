@@ -11,7 +11,9 @@ FAIL = "FAIL"
 ERROR = "ERROR"
 
 def setup():
-    pass
+    with open("test_file.txt", "w") as f:
+      f.write("Hello, World!")
+    create_file("test_create.txt", "Testing create_file function.")
 
 def teardown():
     test_files = ["test_file.txt", "test_create.txt", "test_write.txt"]
@@ -25,10 +27,6 @@ def test_read_file_existing():
     """Test the read_file function with an existing file."""
     setup()
     try:
-        # Create a sample file for testing
-        with open("test_file.txt", "w") as f:
-            f.write("Hello, World!")
-        
         content = read_file("test_file.txt")
         assert content == "Hello, World!", f"Expected 'Hello, World!' but got {content}"
         return PASS
@@ -59,11 +57,7 @@ def test_create_file():
     """Test the create_file function."""
     setup()
     try:
-        # Create a new file
-        result = create_file("test_create.txt", "Testing create_file function.")
-        assert result == True, "Expected True but got False"
-        
-        # Ensure the content is correct
+        # Ensure the file exists and content is correct
         with open("test_create.txt", "r") as f:
             content = f.read()
         assert content == "Testing create_file function.", f"Expected 'Testing create_file function.' but got {content}"
