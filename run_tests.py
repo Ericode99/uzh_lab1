@@ -14,6 +14,8 @@ def setup():
     with open("test_file.txt", "w") as f:
       f.write("Hello, World!")
     create_file("test_create.txt", "Testing create_file function.")
+    with open("test_write.txt", "w") as f:
+      f.write("Initial content.")
 
 def teardown():
     test_files = ["test_file.txt", "test_create.txt", "test_write.txt"]
@@ -76,8 +78,7 @@ def test_write_file():
     setup()
     try:
         # Create an initial file
-        with open("test_write.txt", "w") as f:
-            f.write("Initial content.")
+
         
         # Write new content to the file
         result = write_file("test_write.txt", "New content after write.")
