@@ -7,7 +7,7 @@ This README provides an overview of the testing framework designed to test funct
 1. **Three Test States**: The framework implements three states for a test: `PASS`, `FAIL`, and `ERROR`.
 2. **Introspection**: The program uses introspection to discover and execute test functions automatically. Only functions with a `test_` prefix are considered.
 3. **Timing**: The result of each test, along with its execution time, is printed.
-4. **Teardown**: The `teardown` function is called after each test. This ensures a clean environment for each test.
+4. **Setup and Teardown**: `setup` and `teardown` functions are called before and after each test, respectively. This ensures a clean environment for each test.
 5. **Selective Test Execution**: The framework allows the user to specify a pattern to select which tests to run using the `--select pattern` command-line option.
 
 ## Running the Tests

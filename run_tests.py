@@ -10,6 +10,8 @@ PASS = "PASS"
 FAIL = "FAIL"
 ERROR = "ERROR"
 
+def setup():
+    pass
 
 def teardown():
     test_files = ["test_file.txt", "test_create.txt", "test_write.txt"]
@@ -21,6 +23,7 @@ def teardown():
 
 def test_read_file_existing():
     """Test the read_file function with an existing file."""
+    setup()
     try:
         # Create a sample file for testing
         with open("test_file.txt", "w") as f:
@@ -39,6 +42,7 @@ def test_read_file_existing():
 
 def test_read_file_non_existing():
     """Test the read_file function with a non-existing file."""
+    setup()
     try:
         content = read_file("non_existent_file.txt")
         assert content is None, f"Expected None but got {content}"
@@ -53,6 +57,7 @@ def test_read_file_non_existing():
 
 def test_create_file():
     """Test the create_file function."""
+    setup()
     try:
         # Create a new file
         result = create_file("test_create.txt", "Testing create_file function.")
@@ -74,6 +79,7 @@ def test_create_file():
 
 def test_write_file():
     """Test the write_file function."""
+    setup()
     try:
         # Create an initial file
         with open("test_write.txt", "w") as f:
@@ -99,6 +105,7 @@ def test_write_file():
 
 def test_delete_file():
     """Test the delete_file function."""
+    setup()
     try:
         # Create a file to delete
         with open("test_file.txt", "w") as f:
