@@ -26,13 +26,13 @@ def teardown():
         if os.path.exists(fname):
             os.remove(fname)
 
-    """
-    -----------------------------------------------------------------------
-    ------------------ TESTS FOR read_file FUNCTION -----------------------
-    -----------------------------------------------------------------------
-    """
+
+#-----------------------------------------------------------------------
+#---------------- TESTS FOR THE read_file FUNCTION ---------------------
+#-----------------------------------------------------------------------
+
 def test_read_file_existing():
-    #Test the read_file function with an existing file.
+    # Test the read_file function with an existing file.
     try:
         content = read_file("test_read_file.txt")
         assert content == "Hello, World!", f"Expected 'Hello, World!' but got {content}"
@@ -44,7 +44,7 @@ def test_read_file_existing():
 
 
 def test_read_file_non_existing():
-    """Test the read_file function with a non-existing file."""
+    # Test the read_file function with a non-existing file.
     try:
         content = read_file("non_existent_file.txt")
         assert content is None, f"Expected None but got {content}"
@@ -53,9 +53,14 @@ def test_read_file_non_existing():
         return f"{FAIL}: {e}"
     except Exception as e:
         return f"{ERROR}: {e}"
+    
+
+#-----------------------------------------------------------------------
+#---------------- TESTS FOR THE create_file FUNCTION -------------------
+#-----------------------------------------------------------------------
 
 def test_create_file():
-    """Test the create_file function."""
+    # Test the create_file function.
     try:
         result = create_file("test_create.txt", "")
         assert result is True, f"Expected True but got {result}"
@@ -68,7 +73,7 @@ def test_create_file():
         return f"{ERROR}: {e}"
 
 def test_create_file_for_invalid_name():
-    """Test the create_file function."""
+    # Test the create_file function.
     try:
         result = create_file(".", "")
         assert result is False, f"Expected False but got {result}"
@@ -80,7 +85,7 @@ def test_create_file_for_invalid_name():
         return f"{ERROR}: {e}"
 
 def test_create_file_write_functionality():
-    """Test the create_file function."""
+    # Test the create_file function.
     try:
         # Ensure the file exists and content is correct
         create_file("test_create_write_functionality.txt", "Testing create_file's write functionality")
@@ -93,9 +98,13 @@ def test_create_file_write_functionality():
         return f"{FAIL}: {e}"
     except Exception as e:
         return f"{ERROR}: {e}"
+    
+#-----------------------------------------------------------------------
+#--------------- TESTS FOR THE write_file FUNCTION ---------------------
+#-----------------------------------------------------------------------
 
 def test_write_file():
-    """Test the write_file function."""
+    # Test the write_file function.
     try:
         # Write new content to the file
         result = write_file("test_write.txt", "New content after write.")
@@ -113,7 +122,7 @@ def test_write_file():
         return f"{ERROR}: {e}"
 
 def test_write_file_for_non_existent():
-    """Test the write_file function."""
+    # Test the write_file function.
     try:
         # Try to write content to impossible file
         result = write_file(".", "New content after write.")
@@ -125,9 +134,12 @@ def test_write_file_for_non_existent():
     except Exception as e:
         return f"{ERROR}: {e}"
 
+#-----------------------------------------------------------------------
+#---------------- TESTS FOR THE delete_file FUNCTION -------------------
+#-----------------------------------------------------------------------
 
 def test_delete_file():
-    """Test the delete_file function."""
+    # Test the delete_file function.
     try:
         result = delete_file("test_delete_file.txt")
         assert result == True, f"Expected True but got {result}"
@@ -142,7 +154,7 @@ def test_delete_file():
         return f"{ERROR}: {e}"
 
 def test_delete_file_for_non_existent():
-    """Test the delete_file function, for the case that the file does not exist"""
+    # Test the delete_file function, for the case that the file does not exist
     try:
         result = delete_file("trying_to_delete_non_existent_file.txt")
         assert result == False, f"Expected False but got {result}"
@@ -154,7 +166,10 @@ def test_delete_file_for_non_existent():
         return f"{ERROR}: {e}"
 
 
-# Function to run the tests
+#-----------------------------------------------------------------------
+#---------------------- TEST FUNCTIONS EXECUTION -----------------------
+#-----------------------------------------------------------------------
+
 def run_selected_tests(select_pattern=None):
     setup()
     test_results = []
