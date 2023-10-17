@@ -1,6 +1,7 @@
 
 import os
 import time
+import argparse
 
 # Import the functions from file_manager
 from file_manager import read_file, create_file, write_file, delete_file
@@ -15,7 +16,7 @@ def setup():
       f.write("Hello, World!")
 
     with open("test_write.txt", "w") as f:
-      f.write("Initial content.")
+      pass
 
     with open("test_delete_file.txt", "w") as f:
       f.write("File to delete.")
@@ -84,7 +85,7 @@ def test_create_file_for_invalid_name():
     except Exception as e:
         return f"{ERROR}: {e}"
 
-def test_create_file_write_functionality():
+def test_create_file_w_functionality():
     # Test the create_file function.
     try:
         # Ensure the file exists and content is correct
@@ -171,7 +172,6 @@ def test_delete_file_for_non_existent():
 #-----------------------------------------------------------------------
 
 def run_selected_tests(select_pattern=None):
-    setup()
     test_results = []
     test_functions = [func for name, func in globals().items() if name.startswith('test_')]
     
@@ -179,19 +179,22 @@ def run_selected_tests(select_pattern=None):
         test_functions = [func for func in test_functions if select_pattern in func.__name__]
 
     for test_func in test_functions:
+        setup()
         start_time = time.time()
         result = test_func()
         end_time = time.time()
         total_time = end_time - start_time
         test_results.append((test_func.__name__, result, total_time))
         print(f"{test_func.__name__}: {result} (Executed in {total_time:.4f} seconds)")
-    teardown()
+        teardown()
     return test_results
 
-if __name__ == "__main__":
-    import argparse
+#-----------------------------------------------------------------------
+#---------------------- ADDING COMMAND LINE ARGUMENTS ------------------
+#-----------------------------------------------------------------------
 
-    parser = argparse.ArgumentParser(description="Run tests for file_manager functions.")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
     parser.add_argument("--select", type=str, help="Pattern to select which tests to run.")
     args = parser.parse_args()
 
