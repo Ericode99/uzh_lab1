@@ -132,8 +132,8 @@ def run_selected_tests(select_pattern=None):
         test_functions = [func for func in test_functions if select_pattern in func.__name__]
 
     for test_func in test_functions:
-        result = None
         setup()
+        result = None
         start_time = time.time()
         try:
             test_func()   
