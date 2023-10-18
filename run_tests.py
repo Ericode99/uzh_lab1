@@ -34,26 +34,16 @@ def teardown():
 
 def test_read_file_existing():
     # Test the read_file function with an existing file.
-    try:
         content = read_file("test_read_file.txt")
         assert content == "Hello, World!", f"Expected 'Hello, World!' but got {content}"
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 
 def test_read_file_non_existing():
     # Test the read_file function with a non-existing file.
-    try:
         content = read_file("non_existent_file.txt")
         assert content is None, f"Expected None but got {content}"
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
     
 
 #-----------------------------------------------------------------------
@@ -62,43 +52,28 @@ def test_read_file_non_existing():
 
 def test_create_file():
     # Test the create_file function.
-    try:
         result = create_file("test_create.txt", "")
         assert result is True, f"Expected True but got {result}"
         assert os.path.exists("test_create.txt"), "File was not created"
 
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 def test_create_file_for_invalid_name():
     # Test the create_file function.
-    try:
         result = create_file(".", "")
         assert result is False, f"Expected False but got {result}"
 
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 def test_create_file_w_functionality():
     # Test the create_file function.
-    try:
         # Ensure the file exists and content is correct
         create_file("test_create_write_functionality.txt", "Testing create_file's write functionality")
         with open("test_create_write_functionality.txt", "r") as f:
             content = f.read()
         assert content == "Testing create_file's write functionality", f"Expected 'Testing create_file's write functionality' but got {content}"
         
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
     
 #-----------------------------------------------------------------------
 #--------------- TESTS FOR THE write_file FUNCTION ---------------------
@@ -106,7 +81,6 @@ def test_create_file_w_functionality():
 
 def test_write_file():
     # Test the write_file function.
-    try:
         # Write new content to the file
         result = write_file("test_write.txt", "New content after write.")
         assert result == True, f"Expected True but got {result}"
@@ -116,24 +90,15 @@ def test_write_file():
             content = f.read()
         assert content == "New content after write.", f"Expected 'New content after write.' but got {content}"
         
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 def test_write_file_for_non_existent():
     # Test the write_file function.
-    try:
         # Try to write content to impossible file
         result = write_file(".", "New content after write.")
         assert result == False, f"Expected False but got {result}"
         
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 #-----------------------------------------------------------------------
 #---------------- TESTS FOR THE delete_file FUNCTION -------------------
@@ -141,30 +106,19 @@ def test_write_file_for_non_existent():
 
 def test_delete_file():
     # Test the delete_file function.
-    try:
         result = delete_file("test_delete_file.txt")
         assert result == True, f"Expected True but got {result}"
 
         # Ensure the file is deleted
         assert not os.path.exists("test_delete_file.txt"), "File was not deleted"
         
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
+
 
 def test_delete_file_for_non_existent():
     # Test the delete_file function, for the case that the file does not exist
-    try:
         result = delete_file("trying_to_delete_non_existent_file.txt")
         assert result == False, f"Expected False but got {result}"
         
-        return PASS
-    except AssertionError as e:
-        return f"{FAIL}: {e}"
-    except Exception as e:
-        return f"{ERROR}: {e}"
 
 
 #-----------------------------------------------------------------------
@@ -172,22 +126,27 @@ def test_delete_file_for_non_existent():
 #-----------------------------------------------------------------------
 
 def run_selected_tests(select_pattern=None):
-    test_results = []
     test_functions = [func for name, func in globals().items() if name.startswith('test_')]
     
     if select_pattern:
         test_functions = [func for func in test_functions if select_pattern in func.__name__]
 
     for test_func in test_functions:
+        result = None
         setup()
         start_time = time.time()
-        result = test_func()
+        try:
+            test_func()   
+            result = PASS
+        except AssertionError as e:
+            result = f"{FAIL}: {e}"
+        except Exception as e:
+            result = f"{ERROR}: {e}"
+
         end_time = time.time()
         total_time = end_time - start_time
-        test_results.append((test_func.__name__, result, total_time))
         print(f"{test_func.__name__}: {result} (Executed in {total_time:.4f} seconds)")
         teardown()
-    return test_results
 
 #-----------------------------------------------------------------------
 #---------------------- ADDING COMMAND LINE ARGUMENTS ------------------
