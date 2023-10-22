@@ -47,7 +47,3 @@ The test functions are designed to validate the behavior of corresponding functi
 - **test_delete_file_for_non_existent**: Tests if the delete_file function correctly returns False if it fails to delete the file.
 
 - **run_selected_tests**: Runs all tests by default or only certain tests if the command-line select option is applied. It works by creating a list of functions. If there is a pattern selected, it overwrites the function list and only the remaining functions, that have the selected pattern in their name are executed. Then the function list is passed into a for loop in which each test function is exexuted. Before each test execution the setup function is called and after each test execution the teardown function is called.
-
-## Conclusion
-
-This testing framework provides a robust way to validate the functionality of the `file_manager.py` module, ensuring that file operations are executed correctly.
